@@ -1,10 +1,21 @@
-import React, { useState } from "react";
-export default function Counter() {
-  const [count,setCount] = useState(0);
-  return (<>
-    <button onClick={()=>{setCount(count + 1 )}}> + </button> <br/>
-    <button onClick={()=>{setCount(count - 1)}}> - </button>
-    <div>{count}</div> 
-    </>)
-}
+import React, { useCallback } from 'react';
+import axios from "axios";
+const Button = ({ onClick }) => (
+  <button onClick={onClick}>현재 시간</button>
+);
 
+export default function Home() {
+  const onClick = useCallback(() => {
+    axios.get("http://localhost:5000/api/now").then((res) => {
+      alert(JSON.stringify(res.data))
+      var data = res.data;
+      document.getElementById("timeZone").innerHTML = '<h1>현재시간: '+data.now+'<h1>'
+    });
+  });
+  return (<>
+    <h1>HOME</h1>
+    <Button onClick={onClick} />
+    <div id="timeZone"></div>
+    </>
+  )
+}
