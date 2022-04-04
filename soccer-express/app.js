@@ -12,7 +12,6 @@ var corsOptions = {
   origin: 'http://localhost:3000',
   optionsSuccessStatus: 200 
 }
-
 mongoose
   .connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Successfully connected to mongodb'))
@@ -20,16 +19,86 @@ mongoose
 app.listen(port, () => {
   console.log({"현재 시간 : ":new Date().toLocaleString()})
 })
+app.get('/', (req, res) => {
+  res.json({"현재 시간 : ":new Date().toLocaleString()})
+})
+app.get('/api/now', cors(corsOptions),(req, res) => {
+  res.json({"now":new Date().toLocaleString()})
+})
+app.post("/api/board/write", (req, res)=>{
+  const {passengerId, name, teamId, subject} = req.body
+  console.log(`넘어온 JSON 값 : ${JSON.stringify(req.body)}`)
+  console.log(`passengerId 값 : ${passengerId}`)
+  console.log(`name 값 : ${name}`)
+  console.log(`teamId 값 : ${teamId}`)
+  console.log(`subject 값 : ${subject}`)
+  res.json(req.body)
+})
+function computeBMI(name, height, weight){
+  console.log(' #### 진입  ### ')
+      //Obtain user inputs
+      let _height=Number(height);
+      let _weight=Number(weight);
 
-app.get('/', (req, res) => {
-  res.json({"현재 시간 : ":new Date().toLocaleString()})
+      //Perform calculation
+      let bmi = _weight/Math.pow(_height/100,2);
+
+      let output = Math.round(bmi*100)/100;
+      var result = {name, height, weight}
+      console.log(`계산중인 값들 : ${JSON.stringify(result)}`)
+      if (output<18.5)
+        result.bmi = "저체중";
+      if (output>=18.5 && output<=25)
+        result.bmi = "정상";
+      if (output>=25 && output<=30)
+        result.bmi = "과체중";
+      if (output>30)
+        result.bmi = "경도비만";
+        console.log(`계산끝난 값들 : ${JSON.stringify(result)}`)
+      return result
+}
+app.post("/api/basic/bmi", (req, res)=>{
+  const {name, height, weight} = req.body
+  console.log(`넘어온 JSON 값 : ${JSON.stringify(req.body)}`)
+  console.log(`이름 : ${name}`)
+  console.log(`키 : ${height}`)
+  console.log(`몸무게 : ${weight}`)
+  const json = computeBMI(name, height, weight)
+  console.log(`계산된 JSON 값 : ${JSON.stringify(json)}`)
+  res.json(json)
 })
-app.get('/api/now', cors(corsOptions),(req, res) => {
-  res.json({"now":new Date().toLocaleString()})
+
+app.post("/api/basic/calc", (req, res)=>{
+  const { num1, num2, opcode} = req.body
+  console.log(`넘어온 JSON 값 : ${JSON.stringify(req.body)}`)
+  console.log(`이름 : ${name}`)
+  console.log(`키 : ${height}`)
+  console.log(`몸무게 : ${weight}`)
+  const json = computeBMI(name, height, weight)
+  console.log(`계산된 JSON 값 : ${JSON.stringify(json)}`)
+  res.json(json)
 })
-app.get('/', (req, res) => {
-  res.json({"현재 시간 : ":new Date().toLocaleString()})
-})
-app.get('/api/now', cors(corsOptions),(req, res) => {
-  res.json({"now":new Date().toLocaleString()})
-})
+
+function computeBMI(name, height, weight){
+  console.log(' #### 진입  ### ')
+      //Obtain user inputs
+      let _height=Number(height);
+      let _weight=Number(weight);
+
+      //Perform calculation
+      let bmi = _weight/Math.pow(_height/100,2);
+
+      let output = Math.round(bmi*100)/100;
+      var result = {name, height, weight}
+      console.log(`계산중인 값들 : ${JSON.stringify(result)}`)
+      if (output<18.5)
+        result.bmi = "저체중";
+      if (output>=18.5 && output<=25)
+        result.bmi = "정상";
+      if (output>=25 && output<=30)
+        result.bmi = "과체중";
+      if (output>30)
+        result.bmi = "경도비만";
+        console.log(`계산끝난 값들 : ${JSON.stringify(result)}`)
+      return result
+}
