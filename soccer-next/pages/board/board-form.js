@@ -1,20 +1,23 @@
+import axios from "axios"
 import { useState } from "react"
 import style from "./style/board-form.module.css"
 
-
 export default function BoardhtmlForm(){
+    const proxy = 'http://localhost:5000'
     const [inputs, setInputs] = useState({})
-    const {passengerId, name,subject} = inputs
-    const [result, setResult] =  useState(``)
 
-    const onChange = (e) => {
+    const handleChange = (e) => {
         e.preventDefault()
         const {value,name} = e.target
         setInputs({...inputs, [name]: value})
     }
     const handleSubmit = e => {
         e.preventDefault()
-        alert(`데이터셋 출력 : ${JSON.stringify(subject)}`)
+        axios.post(proxy+'/api/board/write', inputs)
+        .then(res=>{
+            alert(`데이터셋 출력 : ${JSON.stringify(res.data)}`)
+        })
+        .catch(err => alert(err))
     }
     return (<>
         <h1>팀등록</h1>
@@ -26,7 +29,7 @@ export default function BoardhtmlForm(){
                 </div>
                 <div className={style.col75}>
                 <input type="text" className={style.inputText}
-                id="passengerId" name="passengerId" onChange={onChange} />
+                id="passengerId" name="passengerId" onChange={handleChange} />
                 </div>
             </div>
             <div className={style.row}>
@@ -35,7 +38,7 @@ export default function BoardhtmlForm(){
                 </div>
                 <div className={style.col75}>
                 <input type="text" className={style.inputText}
-                id="name" name="name" onChange={onChange} />
+                id="name" name="name" onChange={handleChange} />
                 </div>
             </div>
             <div className={style.row}>
@@ -55,7 +58,7 @@ export default function BoardhtmlForm(){
                 <label htmlFor="subject">Subject</label>
                 </div>
                 <div className={style.col75}>
-                <input type="textarea"  id="subject" name="subject" onChange={onChange}  text="화이팅 FC서울 !! " style={{height:200 + "px"}}></input>
+                <input type="textarea"  id="subject" name="subject" onChange={handleChange}  text="화이팅 FC서울 !! " style={{height:200 + "px"}}></input>
                 </div>
             </div>
             <br/>
