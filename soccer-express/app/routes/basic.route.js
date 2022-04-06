@@ -1,12 +1,10 @@
-const express = require('express');
-const basicRouter = express.Router();
+const { bmi,calc,grade } = require('../controllers/basic.controller');
+module.exports = x => {
+    x.app.post(`${x.url}/bmi`, bmi) 
+    x.app.post(`${x.url}/calc`, calc) 
+    x.app.post(`${x.url}/grade`, grade) 
+} 
 
-basicRouter.use(function timeLog(req,res,next){
-    console.log('Time: ', Date.now());
-    next();
-});
 
-basicRouter.post("/basic",(req,res)=>{
-    
-})
-module.exports = basicRouter;
+// const { admin } = require('../controllers/admin.controller')
+// module.exports = x => x.app.post(`${x.url}/admin`,admin)

@@ -38,10 +38,7 @@ export default function SignUp(){
 
     <button>전 송</button><button>취 소</button>
     <input type = "submit" value= "가입"/>
-    
-    
     </div>
     </form>
-    <div> <span id = "result-span"></span></div>
     </div>)
 }

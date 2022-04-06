@@ -1,11 +1,2 @@
-const express = require('express');
-const todoRouter = express.Router();
-
-todoRouter.use(function timeLog(req,res,next){
-    console.log('Time: ', Date.now());
-    next();
-});
-
-todoRouter.post("/todo",(req,res)=>{
-})
-module.exports = todoRouter;
+const { todo } = require('../controllers/todo.controller');
+module.exports = x => x.app.post(`${x.url}/todo`, todo); 
