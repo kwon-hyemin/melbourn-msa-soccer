@@ -1,72 +1,71 @@
+// 사용자에게 유의미한 data를 받아서 dataset 만들기
+import React, {useState} from "react";
 import axios from "axios"
-import { useState } from "react"
-import style from "./style/board-form.module.css"
+import style from "board/style/board-form.module.css"
 
-export default function BoardhtmlForm(){
+export default function BoardForm(){
     const proxy = 'http://localhost:5000'
     const [inputs, setInputs] = useState({})
 
-    const handleChange = (e) => {
+    const handleChange = (e) => { // e는 argument → 변하지 않음, 변한다면 e.preventDefault(), e.target이 제대로 작동되지 않을 수 있음
         e.preventDefault()
-        const {value,name} = e.target
-        setInputs({...inputs, [name]: value})
+        const {name, value} = e.target
+        setInputs({...inputs, [name] : value})   
     }
+
     const handleSubmit = e => {
         e.preventDefault()
-        axios.post(proxy+'/api/board/write', inputs)
-        .then(res=>{
-            alert(`데이터셋 출력 : ${JSON.stringify(res.data)}`)
+        axios.post(proxy + '/api/board/write', inputs) // param은 callback → 상태 (inputs) 변경
+        .then(res => {
+            alert(`${JSON.stringify(res.data)}`)
         })
         .catch(err => alert(err))
     }
-    return (<>
-        <h1>팀등록</h1>
+
+    return(<>
         <div className={style.container}>
-            <htmlForm action="">
-            <div className={style.row}>
-                <div className={style.col25}>
-                <label className={style.label} htmlFor="passengerId">PassengerId</label>
+            <form action="" onSubmit={handleSubmit}>
+                <div className={style.row}>
+                    <div className={style.col25}>
+                        <label className={style.label} htmlFor="passengerId">PassengerId</label>
+                    </div>
+                    <div className={style.col75}>
+                        <input className={style.inputText} type="text" id="passengerId" name="passengerId" placeholder="사용자 ID 입력" onChange={handleChange}/>
+                    </div>
                 </div>
-                <div className={style.col75}>
-                <input type="text" className={style.inputText}
-                id="passengerId" name="passengerId" onChange={handleChange} />
+                <div className={style.row}>
+                    <div className={style.col25}>
+                        <label className={style.label} htmlFor="name">Name</label>
+                    </div>
+                    <div className={style.col75}>
+                        <input className={style.inputText} type="text" id="name" name="name" placeholder="사용자 이름 입력" onChange={handleChange}/>
+                    </div>
                 </div>
-            </div>
-            <div className={style.row}>
-                <div className={style.col25}>
-                <label htmlFor="name">Name</label>
+                <div className={style.row}>
+                    <div className={style.col25}>
+                        <label className={style.label} htmlFor="team">Team</label>
+                    </div>
+                    <div className={style.col75}>
+                        <select id="teamId" name="teamId" onChange={handleChange}>
+                            <option value="K09" selected>서울 FC서울</option>
+                            <option value="K04">인천 유나이티드</option>
+                            <option value="K02">수원 삼성블루윙즈</option>
+                        </select>
+                    </div>
                 </div>
-                <div className={style.col75}>
-                <input type="text" className={style.inputText}
-                id="name" name="name" onChange={handleChange} />
+                <div className={style.row}>
+                    <div className={style.col25}>
+                        <label className={style.label} htmlFor="subject">Subject</label>
+                    </div>
+                    <div className={style.col75}>
+                        <textarea className={style.inputText} id="subject" name="subject" style={{height:200 + "px"}} onChange={handleChange}/>
+                    </div>
                 </div>
-            </div>
-            <div className={style.row}>
-                <div className={style.col25}>
-                <label htmlFor="team">Team</label>
+                <br/>
+                <div className={style.row}>
+                    <input className={style.inputSubmit} type="submit" value="Submit"/>
                 </div>
-                <div className={style.col75}>
-                <select id="teamId" name="teamId">
-                    <option value="K09" selected>Fc seoul</option>
-                    <option value="K02">Suwon Samseong blue wings</option>
-                    <option value="K04">Incheon United</option>
-                </select>
-                </div>
-            </div>
-            <div className={style.row}>
-                <div className={style.col25}>
-                <label htmlFor="subject">Subject</label>
-                </div>
-                <div className={style.col75}>
-                <input type="textarea"  id="subject" name="subject" onChange={handleChange}  text="화이팅 FC서울 !! " style={{height:200 + "px"}}></input>
-                </div>
-            </div>
-            <br/>
-            <div className={style.row}>
-                <input type="submit" className={style.inputSubmit}
-                onClick={handleSubmit} />
-            </div>
-            </htmlForm>
-            </div>
+            </form>
+        </div>
     </>)
 }

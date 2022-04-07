@@ -21,11 +21,9 @@
 // module.exports =  mongoose.model('User', UserSchema);
 
 module.exports = mongoose => {
-    const UserSchema = mongoose.model(
-        'user',
+    const UserSchema = mongoose.model('user',
         mongoose.Schema(
-            {
-                username: String,
+            {   username: String,
                 password: String,
                 name:String,
                 telephone:String

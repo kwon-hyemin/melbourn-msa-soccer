@@ -1,37 +1,36 @@
-import React,{useState} from 'react'
-import {Layout} from '../common';
-export default function Login(){
-    const [inputs, setInputs] =useState({})
-    const{username, password} = inputs;
-    const handleChange = (e) =>{
-        e.preventDefault()
-        const{value, name} = e.target;
-        setInputs({...inputs,[name]: value})
-    }
-    const handleClick =(e)=>{
-        e.preventDefault()
-        const loginRequest = {username, password}
-        alert(`사용자 이름 : ${JSON.stringify(loginRequest)}`)
-    }
-    return <><h1>로그인폼</h1>
-    <form>
-  
-    <div>
-    <label><b>Username</b></label>
-    <input type="text" name='username' onChange={handleChange} /><br />
+import React, {useState} from "react"
 
-    <label htmlFor=""><b>Password</b></label>
-    <input type="text" name='password' onChange={handleChange}/><br />
+export default function SignIn(){
+    const [inputs, setInputs] = useState({})
+    const {userId, pw} = inputs;
 
-    <button onClick={handleClick}>Login</button><br />
-    <label><input type="checkbox" />Remember me</label><br />
+    const handleChange = (e) => {
+        e.preventDefault()
+        const {value, name} = e.target;
+        setInputs({...inputs, [name] : value})
+    }
+
+    const handleSubmit = (e) => {
+       e.preventDefault()
+       const dataset = {userId, pw}
+       alert(`데이터셋 출력 : ${JSON.stringify(dataset)}`)
+    }
     
-    
-    </div>
-    <div>
-    <button>Cancel</button><br />
-    <span>Forgot <a>password?</a></span>
-    </div>
-    </form>
-    </>
+    return (<>
+        <h1>로그인 폼</h1>
+        <div>
+            <label><b>UserId</b></label> <br/>
+            <input type="text" name="userId" onChange={handleChange}/> <br/>
+            <label><b>Password</b></label> <br/>
+            <input type="password" name="pw" onChange={handleChange}/> <br/>
+            <button onClick={handleSubmit}>Login</button> <br/>
+            <label>
+                <input type="checkbox"/> Remember me
+            </label>
+        </div>
+        <div>
+            <button>Cancel</button> &nbsp;
+            <span>Forgot<a>password?</a></span>
+        </div>
+    </>)
 }

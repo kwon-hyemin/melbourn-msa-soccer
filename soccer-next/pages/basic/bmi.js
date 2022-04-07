@@ -1,36 +1,43 @@
-import axios from 'axios';
-import React, { useState } from 'react';
-export default function Bmi() {
+import React, {useState} from "react" // 경량화 (필요한 것만 뽑아냄)
+import axios from "axios"
+import {BasicLayout} from "basic/index"
+
+export default function Bmi(){
     const proxy = 'http://localhost:5000'
-    const [inputs, setInputs] = useState({})
-    const handleChange = e => {
+    const [inputs, setInputs] = useState({}) // 세 개로 나뉜 것을 JSON({})으로 합침
+
+    const handleChange = (e) => {
         e.preventDefault()
-        const { value, name } = e.target
-        setInputs({ ...inputs, [name]: value })
+        const {name, value} = e.target
+        setInputs({...inputs, [name] : value})   
     }
 
     const handleSubmit = e => {
         e.preventDefault()
-        axios.post(proxy+'/api/basic/bmi', inputs)
+        axios.post(proxy + '/api/basic/bmi', inputs)
         .then(res => {
             alert(`${JSON.stringify(res.data)}`)
         })
         .catch(err => alert(err))
     }
-    return (<div>
-        <form action="" onSubmit={handleSubmit} >
-            <h1>BMI</h1>
-            <div>
-                <label htmlFor="">이름</label>
-                <input type="text" name="name" onChange={handleChange} /><br />
-
-                <label htmlFor="">키</label>
-                <input type="text" name="height" onChange={handleChange} /><br />
-
-                <label htmlFor="">몸무게</label>
-                <input type="text" name="weight" onChange={handleChange} /><br />
-                <input type="submit" value="BMI 체크" /><br />
-            </div>
-        </form>
-    </div>)
+    
+    return (<>
+        <BasicLayout>
+            <h1>Bmi</h1>
+            <form onSubmit={handleSubmit}>
+                <div>
+                    <label><b>이름</b></label> <br/>
+                    <input type="text" name="name" onChange={handleChange}/> <br/>
+                    <label><b>키</b></label> <br/>
+                    <input type="text" name="height" onChange={handleChange}/> <br/>
+                    <label><b>몸무게</b></label> <br/>
+                    <input type="text" name="weight" onChange={handleChange}/>
+                </div>
+                <div>
+                    <input type="submit" value="BMI 체크"/> &nbsp;
+                    <button>취소</button>
+                </div>
+            </form>
+        </BasicLayout>
+    </>)
 }
