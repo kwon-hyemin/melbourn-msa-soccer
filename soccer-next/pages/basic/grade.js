@@ -1,5 +1,4 @@
 import React, {useState} from "react"
-import {BasicLayout} from "basic";
 import axios from "axios";
 
 export default function Grade(){
@@ -22,7 +21,6 @@ export default function Grade(){
     }
     
     return (<>
-        <BasicLayout>
             <h1>성적표</h1>
             <form>
                 <div>
@@ -40,6 +38,5 @@ export default function Grade(){
                     <button>취소</button>
                 </div>
             </form>
-        </BasicLayout>
     </>)
 }

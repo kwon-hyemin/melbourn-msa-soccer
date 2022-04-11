@@ -1,6 +1,5 @@
 import React, {useState} from "react" // 경량화 (필요한 것만 뽑아냄)
 import axios from "axios"
-import {BasicLayout} from "basic/index"
 
 export default function Bmi(){
     const proxy = 'http://localhost:5000'
@@ -22,7 +21,6 @@ export default function Bmi(){
     }
     
     return (<>
-        <BasicLayout>
             <h1>Bmi</h1>
             <form onSubmit={handleSubmit}>
                 <div>
@@ -38,6 +36,5 @@ export default function Bmi(){
                     <button>취소</button>
                 </div>
             </form>
-        </BasicLayout>
     </>)
 }

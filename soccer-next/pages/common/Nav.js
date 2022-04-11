@@ -6,7 +6,7 @@ export default function Nav(){
         <nav className={styles.nav}>
             <ul>
                 <li className={styles.li}> <Link href='/'>Home</Link> </li>
-                <li className={styles.li}> <Link href='/basic/basic-layout'>Basic</Link> </li>
+                <li className={styles.li}> <Link href='/basic/bmi'>Basic</Link> </li>
                 <li className={styles.li}> <Link href='/game/game-list'>Game List</Link> </li>
                 <li className={styles.li}> <Link href='/game/team-list'>Team List</Link> </li>
                 <li className={styles.li}> <Link href='/game/team-form'>Team Form</Link> </li>
@@ -14,8 +14,8 @@ export default function Nav(){
                 <li className={styles.li}> <Link href='/admin/dashboard'>Dashboard</Link> </li>
                 <li className={styles.li}> <Link href='/board/board-list'>Board List</Link> </li>
                 <li className={styles.li}> <Link href='/board/board-form'>Board Form</Link> </li>
-                <li className={styles.li}> <Link href='/user/sign-in'>Sign In</Link> </li>
-                <li className={styles.li}> <Link href='/user/sign-up'>Sign Up</Link> </li>
+                <li className={styles.li}> <Link href='/user/join'>JOIN</Link> </li>
+                <li className={styles.li}> <Link href='/user/login'>LOGIN</Link> </li>
                 <li className={styles.li}> <Link href='/user/user-list'>User list</Link> </li>
             </ul>
         </nav>

@@ -1,6 +1,5 @@
 import React, {useState} from "react"
 import axios from "axios"
-import {BasicLayout} from "basic";
 
 export default function Calc(){
     const proxy = 'http://localhost:5000'
@@ -22,7 +21,6 @@ export default function Calc(){
     }
 
     return (<>
-        <BasicLayout>
             <h1>계산기</h1>
             <form>
                 <label><b>num1</b></label> <br/>
@@ -42,6 +40,5 @@ export default function Calc(){
                     <button>취소</button>
                 </div>
             </form>
-        </BasicLayout>
     </>)
 }
